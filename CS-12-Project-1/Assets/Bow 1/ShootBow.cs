@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class ShootBow : MonoBehaviour {
     int reloadTime = 1;
-    float arrowSpeed = 0.1f;
     float angle;
-    Vector3 mousePos = Input.mousePosition;
-    Vector3 bowPos;
+    Vector3 mousePos;
 
     void Start() {
-        
+       // Debug.Log(Vector3.Normalize(new Vector3(1.5f, 0.72f, 0)));
     }
 
     void Update() {
-        mousePos.z = 0;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        bowPos = transform.Find("Bow1_loaded").position;
-
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Debug.Log(Vector3.forward + " + " + (mousePos - transform.position));
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+        
+        /*
+        if (Input.GetMouseButtonDown(0)) {
+            Object clone = Instantiate(transform.Find("Arrow"));
+            while (!((clone as GameObject).GetComponent<ArrowMove>())) {
+                yeild return null;
+            }
+            (clone as GameObject).GetComponent<ArrowMove>().enabled = true;
+            transform.Find("Arrow").gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        */
 
 
     }
