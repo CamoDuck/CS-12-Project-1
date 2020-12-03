@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootBow : MonoBehaviour {
-    int reloadTime = 1;
-    float angle;
+    float reloadTime = 1f;
+    bool ready = true;
     Vector3 mousePos;
 
+    Transform T_Arrow;
+
+    IEnumerator createArrow() {
+        ready = false;
+        Transform clone; 
+        clone = Instantiate(T_Arrow, transform.position, T_Arrow.rotation);
+        clone.GetComponent<ArrowMove>().enabled = true;
+        T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(clone.gameObject, 3);
+        yield return new WaitForSeconds(reloadTime);
+        T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        ready = true;
+    }
+
+
     void Start() {
-       // Debug.Log(Vector3.Normalize(new Vector3(1.5f, 0.72f, 0)));
+        T_Arrow = transform.Find("Arrow");
     }
 
     void Update() {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Debug.Log(Vector3.forward + " + " + (mousePos - transform.position));
         transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-        
-        /*
-        if (Input.GetMouseButtonDown(0)) {
-            Object clone = Instantiate(transform.Find("Arrow"));
-            while (!((clone as GameObject).GetComponent<ArrowMove>())) {
-                yeild return null;
-            }
-            (clone as GameObject).GetComponent<ArrowMove>().enabled = true;
-            transform.Find("Arrow").gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        if (Input.GetMouseButtonDown(0) & ready == true) {
+            StartCoroutine(createArrow());
         }
-        */
 
 
     }

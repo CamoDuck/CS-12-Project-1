@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ArrowMove : MonoBehaviour {
     Vector3 mousePos;
-    float speed = 0.01f;
+    float speed = 10f;
+
+
     void Start() {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos = Vector3.Normalize(mousePos - transform.position)*speed;
@@ -12,7 +14,6 @@ public class ArrowMove : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(mousePos);
-        transform.position += mousePos;
+        transform.position += mousePos * Time.deltaTime;
     }
 }
