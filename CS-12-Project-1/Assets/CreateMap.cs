@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CreateMap : MonoBehaviour {
 
     int negplus1() {
@@ -22,7 +23,7 @@ public class CreateMap : MonoBehaviour {
 
     void Start() {
         GameObject room = generate(GameObject.Find("start"));
-        for (int i=0; i < 10000; i++) {
+        for (int i=0; i < 100; i++) {
             room = generate(room);
         }
 
