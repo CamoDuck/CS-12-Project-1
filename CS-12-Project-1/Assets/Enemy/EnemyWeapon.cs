@@ -10,7 +10,8 @@ public class EnemyWeapon : MonoBehaviour {
     {
         Transform clone;
         clone = Instantiate(T_Arrow, transform.position, T_Arrow.rotation);
-        clone.GetComponent<EnemyArrowMove>().enabled = true;
+        clone.GetComponent<ArrowMove>().enabled = true;
+        clone.tag = transform.parent.tag;
         T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         Destroy(clone.gameObject, 3);
         yield return new WaitForSeconds(reloadTime);

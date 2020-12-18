@@ -20,7 +20,7 @@ public class Createmap3 : MonoBehaviour {
             wall.transform.parent = now.transform;
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y/nowsize.y, 1);
             wall.transform.position = new Vector3((now.transform.position.x + nowsize.x), (now.transform.position.y), 1);
-            Debug.Log(wall.transform.localScale + "x+");
+            //Debug.Log(wall.transform.localScale + "x+");
         }
         if (coord.x == 1)
         {
@@ -37,7 +37,7 @@ public class Createmap3 : MonoBehaviour {
             wall.transform.parent = now.transform;
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / nowsize.y, 1);
             wall.transform.position = new Vector3((now.transform.position.x - nowsize.x), (now.transform.position.y), 1);
-            Debug.Log(wall.transform.localScale + "x-");
+            //Debug.Log(wall.transform.localScale + "x-");
         }
         if (coord.y == -1)
         {
@@ -53,7 +53,7 @@ public class Createmap3 : MonoBehaviour {
             wall.name = "wall+y";
             wall.transform.parent = now.transform;
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / nowsize.y, 1);
-            Debug.Log(wall.transform.localScale + "y+");
+            //Debug.Log(wall.transform.localScale + "y+");
             wall.transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
             wall.transform.position = new Vector3((now.transform.position.x), (now.transform.position.y + nowsize.y), 1);
         }
@@ -73,7 +73,7 @@ public class Createmap3 : MonoBehaviour {
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / nowsize.y, 1);
             wall.transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
             wall.transform.position = new Vector3((now.transform.position.x), (now.transform.position.y - nowsize.y), 1);
-            Debug.Log(wall.transform.localScale + "y-");
+            //Debug.Log(wall.transform.localScale + "y-");
         }
 
     }
@@ -154,7 +154,7 @@ public class Createmap3 : MonoBehaviour {
 
         map[10][10] = GameObject.Find("start");
         generate(map, 10, 10, 50);
-        printL(map);
+        //printL(map);
 
     }
 
