@@ -30,7 +30,7 @@ public class MoveEnemy : MonoBehaviour
         {
             moveAway();
         }
-        else if (Vector3.Distance(transform.position, player.transform.position) > 5)
+        else if (Vector3.Distance(transform.position, player.transform.position) > 8)
         {
             moveToward();
         }
