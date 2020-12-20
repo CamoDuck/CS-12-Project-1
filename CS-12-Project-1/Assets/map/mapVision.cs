@@ -8,7 +8,7 @@ public class mapVision : MonoBehaviour
     {
         if (collision.gameObject.name == "Player" && transform.tag != "Player")
         {
-            Debug.Log("Boomer");
+            transform.parent.GetComponent<fillMap>().enabled = true;
             Destroy(gameObject);
         }
     }
