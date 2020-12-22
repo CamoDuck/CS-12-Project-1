@@ -10,6 +10,12 @@ public class MovePlayer : MonoBehaviour {
     Transform bow;
     Transform sword;
 
+    void inventory() {
+        Transform inventory = transform.Find("Inventory");
+        inventory.GetComponent<Canvas>().enabled = !inventory.GetComponent<Canvas>().enabled;
+    
+    }
+
     void disableChild(Transform thing, bool option) {
         thing.GetComponent<SpriteRenderer>().enabled = option;
         for (int x = 0; x < thing.childCount; x++) {
@@ -73,6 +79,9 @@ public class MovePlayer : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.LeftShift)) {
             sprint = 1;
         
+        }
+        if (Input.GetKeyUp(KeyCode.E)) {
+            inventory();
         }
 
 

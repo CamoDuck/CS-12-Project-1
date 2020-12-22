@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveEnemy : MonoBehaviour
+public class MoveBowEnemy : MonoBehaviour
 {
     float speed = 5f;
     GameObject player;

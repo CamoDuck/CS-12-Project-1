@@ -39,16 +39,16 @@ public class SwordSwing : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(temp.eulerAngles.x, temp.eulerAngles.y, temp.eulerAngles.z + change);
-        Debug.Log((Input.GetMouseButton(0) & transform.GetComponent<SpriteRenderer>().enabled == true) | transform.parent.tag == "Enemy");
+        //Debug.Log((Input.GetMouseButton(0) & transform.GetComponent<SpriteRenderer>().enabled == true) | transform.parent.tag == "Enemy");
 
         if (ready == false)
         {
             change += (arc / reload * Time.deltaTime);
 
         }
-        else if ((Input.GetMouseButton(0) & transform.GetComponent<SpriteRenderer>().enabled == true) | transform.parent.tag == "Enemy")
+        else if ((Input.GetMouseButton(0) | transform.parent.tag == "Enemy") & transform.GetComponent<SpriteRenderer>().enabled == true) 
         {
-            Debug.Log("ran");
+            //Debug.Log("ran");
             ready = false;
             StartCoroutine(Swing());
         }
