@@ -73,7 +73,7 @@ public class MovePlayer : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            sprint = 2f;
+            sprint = 4f;
 
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift)) {

@@ -7,7 +7,6 @@ public class playerItems : MonoBehaviour
 {
     Transform swordEquip;
     Transform bowEquip;
-    List<Transform> items;
 
     void Start() {
         swordEquip = transform.parent.Find("SwordRot").Find("Sword");
@@ -24,7 +23,7 @@ public class playerItems : MonoBehaviour
                 clone.GetComponent<Image>().sprite = transform.Find("items").GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
                 clone.localScale = new Vector3(0.2f, 0.3f, 1);
                 clone.position = transform.Find("itemUI").position + new Vector3(-130 + (40 * (i%7)), 80 - (40*((i-(i%7))/7)), 0);
-                clone.parent = transform.Find("itemUI");
+                clone.SetParent(transform.Find("itemUI"));
         }
 
 

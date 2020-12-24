@@ -22,7 +22,10 @@ public class ShootBow : MonoBehaviour {
         clone.GetComponent<Rigidbody2D>().simulated = true;
         T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(reloadTime);
-        T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        if (transform.GetComponent<SpriteRenderer>().enabled == true)
+        {
+            T_Arrow.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
         ready = true;
     }
 
