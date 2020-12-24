@@ -15,12 +15,12 @@ public class ArrowMove : MonoBehaviour {
         }
         else if (collision.gameObject.name == "Enemy" && transform.tag != "Enemy")
         {
-            Debug.Log("hit Enemy!");
+            //Debug.Log("hit Enemy!");
 
 
         }
         else if (collision.gameObject.name == "Player" && transform.tag != "Player") {
-            Debug.Log("hit Player!");
+            //Debug.Log("hit Player!");
         }
     }
 

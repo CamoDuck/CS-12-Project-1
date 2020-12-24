@@ -38,15 +38,16 @@ public class ChestItems : MonoBehaviour
         spawns["SwordRot"] = 2;
         spawns["Bowrot"] = 2;
         createRandom();
-
-        for (int i = 1; i < transform.childCount; i++)
+        int count = transform.childCount;
+        for (int i = 1; i < count; i++)
         {
             Transform clone = Instantiate(transform.Find("Canvas").Find("default"));
-            clone.GetComponent<Image>().sprite = transform.GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            clone.GetComponent<Image>().sprite = transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite;
             clone.localScale = new Vector3(0.2f, 0.3f, 1);
             clone.position = transform.Find("Canvas").Find("itemUI").position + new Vector3(-130 + (40 * ((i-1) % 7)), 80 - (40 * (((i-1) - ((i-1) % 7)) / 7)), 0);
             clone.SetParent(transform.Find("Canvas").Find("itemUI"));
             clone.GetComponent<Image>().enabled = true;
+            transform.GetChild(1).SetParent(clone);
         }
         transform.Find("Canvas").GetComponent<Canvas>().enabled = false;
     }
