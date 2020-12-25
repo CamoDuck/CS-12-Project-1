@@ -7,6 +7,25 @@ public class MoveSwordEnemy : MonoBehaviour
     float speed = 5f;
     GameObject player;
 
+    Transform healthbar;
+    float healthsize;
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "Player")
+        {
+            healthbar.localScale -= new Vector3(0.1f, 0, 0);
+            healthbar.position -= new Vector3(healthsize, 0, 0);
+
+            if (healthbar.localScale.x <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     void moveAway()
     {
         float Xdir = Vector3.Normalize(transform.position - player.transform.position).x;
@@ -23,6 +42,9 @@ public class MoveSwordEnemy : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+
+        healthbar = transform.Find("Healthbar").Find("Healthsize");
+        healthsize = healthbar.GetComponent<SpriteRenderer>().bounds.extents.x / 10;
     }
 
     void Update()
