@@ -19,6 +19,7 @@ public class SwordSwing : MonoBehaviour
         yield return new WaitForSeconds(reload);
         ready = true;
         change = 0;
+        transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
 
     }
 
@@ -44,6 +45,7 @@ public class SwordSwing : MonoBehaviour
         if (ready == false)
         {
             change += (arc / reload * Time.deltaTime);
+            transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
 
         }
         else if ((Input.GetMouseButton(0) | transform.parent.tag == "Enemy") & transform.GetComponent<SpriteRenderer>().enabled == true) 

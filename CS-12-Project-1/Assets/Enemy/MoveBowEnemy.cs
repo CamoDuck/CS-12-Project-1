@@ -9,6 +9,8 @@ public class MoveBowEnemy : MonoBehaviour
 
     Transform healthbar;
     float healthsize;
+    int burnTime;
+    float time = 0;
     
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -16,10 +18,17 @@ public class MoveBowEnemy : MonoBehaviour
         if (collision.gameObject.tag == "Player") {
             healthbar.localScale -= new Vector3(0.1f,0,0);
             healthbar.position -= new Vector3(healthsize, 0, 0);
-
-            if (healthbar.localScale.x <= 0) {
-                Destroy(gameObject);
+            if (collision.gameObject.name == "iceSword" & Random.Range(0,5) == 0) {
+                Debug.Log("frozen");
+                burnTime = 0;
+            
             }
+            else if (collision.gameObject.name == "fireSword" & Random.Range(0, 5) == 0)
+            {
+                burnTime = 5;
+
+            }
+  
         }
     }
 
@@ -55,6 +64,18 @@ public class MoveBowEnemy : MonoBehaviour
         {
             moveToward();
         }
+        if (burnTime != 0 & time >= 1)
+        {
+            healthbar.localScale -= new Vector3(0.1f, 0, 0);
+            healthbar.position -= new Vector3(healthsize, 0, 0);
+            time = 0;
+
+        }
+        if (healthbar.localScale.x <= 0)
+        {
+            Destroy(gameObject);
+        }
+        time += Time.deltaTime;
 
     }
 }
