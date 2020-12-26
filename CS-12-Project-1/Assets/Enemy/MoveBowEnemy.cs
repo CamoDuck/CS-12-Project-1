@@ -9,40 +9,45 @@ public class MoveBowEnemy : MonoBehaviour
 
     Transform healthbar;
     float healthsize;
-    int burnTime;
-    float time = 0;
-    
+    float burnTime;
+    float freezeTime;
+
+
 
     void OnTriggerEnter2D(Collider2D collision) {
-        
+
         if (collision.gameObject.tag == "Player") {
-            healthbar.localScale -= new Vector3(0.1f,0,0);
+            healthbar.localScale -= new Vector3(0.1f, 0, 0);
             healthbar.position -= new Vector3(healthsize, 0, 0);
-            if (collision.gameObject.name == "iceSword" & Random.Range(0,5) == 0) {
-                Debug.Log("frozen");
+            if (collision.gameObject.name == "ice" & Random.Range(0, 5) == 0) {
+                freezeTime = 5;
                 burnTime = 0;
-            
-            }
-            else if (collision.gameObject.name == "fireSword" & Random.Range(0, 5) == 0)
-            {
-                burnTime = 5;
+                transform.Find("BowRot").GetComponent<ShootBow>().enabled = false;
+                Debug.Log("Freeze");
 
             }
-  
+            else if (collision.gameObject.name == "fire" & Random.Range(0, 5) == 0)
+            {
+                burnTime = 5;
+                freezeTime = 0;
+                Debug.Log("burnn");
+
+            }
+
         }
     }
 
 
 
-        void moveAway() {
+    void moveAway() {
         float Xdir = Vector3.Normalize(transform.position - player.transform.position).x;
         float Ydir = Vector3.Normalize(transform.position - player.transform.position).y;
-        transform.position += Vector3.Normalize(new Vector3(Random.Range(Xdir-1.0f, Xdir), Random.Range(Ydir-1.0f, Ydir), 0)) * speed * Time.deltaTime;
+        transform.position += Vector3.Normalize(new Vector3(Random.Range(Xdir - 1.0f, Xdir), Random.Range(Ydir - 1.0f, Ydir), 0)) * speed * Time.deltaTime;
     }
     void moveToward() {
         float Xdir = Vector3.Normalize(player.transform.position - transform.position).x;
         float Ydir = Vector3.Normalize(player.transform.position - transform.position).y;
-        transform.position += Vector3.Normalize(new Vector3(Random.Range(Xdir-1.0f, Xdir), Random.Range(Ydir-1.0f, Ydir), 0)) * speed * Time.deltaTime;
+        transform.position += Vector3.Normalize(new Vector3(Random.Range(Xdir - 1.0f, Xdir), Random.Range(Ydir - 1.0f, Ydir), 0)) * speed * Time.deltaTime;
     }
 
     void Start()
@@ -55,27 +60,35 @@ public class MoveBowEnemy : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("running2");
-        if (Vector3.Distance(transform.position, player.transform.position) < 4)
-        {
-            moveAway();
-        }
-        else if (Vector3.Distance(transform.position, player.transform.position) > 8)
-        {
-            moveToward();
-        }
-        if (burnTime != 0 & time >= 1)
-        {
-            healthbar.localScale -= new Vector3(0.1f, 0, 0);
-            healthbar.position -= new Vector3(healthsize, 0, 0);
-            time = 0;
-
-        }
         if (healthbar.localScale.x <= 0)
         {
             Destroy(gameObject);
         }
-        time += Time.deltaTime;
+        if (freezeTime <= 0)
+        {
+            transform.Find("BowRot").GetComponent<ShootBow>().enabled = true;
+            //Debug.Log("running2");
+            if (Vector3.Distance(transform.position, player.transform.position) < 4)
+            {
+                moveAway();
+            }
+            else if (Vector3.Distance(transform.position, player.transform.position) > 8)
+            {
+                moveToward();
+            }
+            if (burnTime >= 0)
+            {
+                healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f, 0, 0);
+                healthbar.position -= new Vector3(healthsize * Time.deltaTime, 0, 0);
+                burnTime -= Time.deltaTime;
+                Debug.Log(burnTime);
 
+            } 
+
+        }
+        else
+        {
+            freezeTime -= Time.deltaTime;
+        }
     }
 }

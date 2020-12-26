@@ -9,6 +9,9 @@ public class MoveSwordEnemy : MonoBehaviour
 
     Transform healthbar;
     float healthsize;
+    float burnTime;
+    float freezeTime;
+
 
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -18,13 +21,25 @@ public class MoveSwordEnemy : MonoBehaviour
         {
             healthbar.localScale -= new Vector3(0.1f, 0, 0);
             healthbar.position -= new Vector3(healthsize, 0, 0);
-
-            if (healthbar.localScale.x <= 0)
+            if (collision.gameObject.name == "ice" & Random.Range(0, 5) == 0)
             {
-                Destroy(gameObject);
+                freezeTime = 5;
+                burnTime = 0;
+                transform.Find("SwordRot").GetComponent<SwordSwing>().enabled = false;
+                Debug.Log("Freeze");
+
             }
+            else if (collision.gameObject.name == "fire" & Random.Range(0, 5) == 0)
+            {
+                burnTime = 5;
+                freezeTime = 0;
+                Debug.Log("burnn");
+
+            }
+
         }
     }
+
 
     void moveAway()
     {
@@ -49,18 +64,41 @@ public class MoveSwordEnemy : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 2)
+        if (healthbar.localScale.x <= 0)
         {
-            transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = true;
-            moveAway();
+            Destroy(gameObject);
         }
-        else if (Vector3.Distance(transform.position, player.transform.position) > 3)
+        if (freezeTime <= 0)
         {
-            transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = false;
-            moveToward();
+            transform.Find("SwordRot").GetComponent<SwordSwing>().enabled = true;
+            if (Vector3.Distance(transform.position, player.transform.position) < 2)
+            {
+                transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = true;
+                moveAway();
+            }
+            else if (Vector3.Distance(transform.position, player.transform.position) > 3)
+            {
+                transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = false;
+                moveToward();
+            }
+            else
+            {
+                transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = true;
+            }
+            if (burnTime >= 0)
+            {
+                healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f, 0, 0);
+                healthbar.position -= new Vector3(healthsize * Time.deltaTime, 0, 0);
+                burnTime -= Time.deltaTime;
+                Debug.Log(burnTime);
+
+            }
         }
         else {
-            transform.Find("SwordRot").GetComponent<SpriteRenderer>().enabled = true;
+            freezeTime -= Time.deltaTime;
+
         }
     }
+
+
 }

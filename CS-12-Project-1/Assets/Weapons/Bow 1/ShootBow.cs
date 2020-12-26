@@ -17,6 +17,7 @@ public class ShootBow : MonoBehaviour {
         Transform clone; 
         clone = Instantiate(T_Arrow, transform.position, T_Arrow.rotation);
         clone.tag = transform.parent.tag;
+        clone.name = T_Arrow.name;
         clone.GetComponent<ArrowMove>().enabled = true;
         clone.GetComponent<BoxCollider2D>().enabled = true;
         clone.GetComponent<Rigidbody2D>().simulated = true;

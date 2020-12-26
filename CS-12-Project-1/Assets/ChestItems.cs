@@ -31,12 +31,17 @@ public class ChestItems : MonoBehaviour
 
     void Start()
     {
+        spawns["SwordRot"] = 2;
+        spawns["Bowrot"] = 2;
+        spawns["iceSwordRot"] = 3;
+        spawns["fireSwordRot"] = 3;
+
+
+
         playerInv = GameObject.Find("Player").transform.Find("Inventory");
         width = transform.GetComponent<Renderer>().bounds.extents.x;
         height = transform.GetComponent<Renderer>().bounds.extents.y;
 
-        spawns["SwordRot"] = 2;
-        spawns["Bowrot"] = 2;
         createRandom();
         int count = transform.childCount;
         for (int i = 1; i < count; i++)
