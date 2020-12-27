@@ -7,8 +7,6 @@ public class MovePlayer : MonoBehaviour {
     float ySpeed;
     float speed = 5f;
     float sprint = 1;
-    Transform bow;
-    Transform sword;
 
     void inventory() {
         Transform inventory = transform.Find("Inventory");
@@ -25,8 +23,6 @@ public class MovePlayer : MonoBehaviour {
     }
 
     void Start() {
-        bow = transform.Find("BowRot");
-        sword = transform.Find("SwordRot");
 
     }
 
@@ -61,13 +57,13 @@ public class MovePlayer : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.Alpha1)) {
             Debug.Log("run1");
-            disableChild(sword, true);
-            disableChild(bow, false);
+            disableChild(transform.Find("SwordRot"), true);
+            disableChild(transform.Find("BowRot"), false);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2)) {
             Debug.Log("run2");
-            disableChild(sword, false);
-            disableChild(bow, true);
+            disableChild(transform.Find("SwordRot"), false);
+            disableChild(transform.Find("BowRot"), true);
 
         }
 
@@ -81,6 +77,8 @@ public class MovePlayer : MonoBehaviour {
         
         }
         if (Input.GetKeyUp(KeyCode.E)) {
+            disableChild(transform.Find("SwordRot"), false);
+            disableChild(transform.Find("BowRot"), false);
             inventory();
         }
 

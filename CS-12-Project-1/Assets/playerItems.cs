@@ -13,7 +13,7 @@ public class playerItems : MonoBehaviour
         int count = transform.Find("items").childCount + UIpos;
         for (int i = (0 + UIpos); i < count; i++)
         {
-            Transform clone = Instantiate(transform.Find("itemEquip").Find("Sword"));
+            Transform clone = Instantiate(transform.Find("default"));
             clone.GetComponent<Image>().sprite = transform.Find("items").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
             clone.localScale = new Vector3(0.2f, 0.3f, 1);
             clone.GetComponent<Image>().enabled = true;

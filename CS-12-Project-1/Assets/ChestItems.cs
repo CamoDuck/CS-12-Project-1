@@ -34,7 +34,9 @@ public class ChestItems : MonoBehaviour
         spawns["SwordRot"] = 2;
         spawns["Bowrot"] = 2;
         spawns["iceSwordRot"] = 3;
+        spawns["iceBowRot"] = 3;
         spawns["fireSwordRot"] = 3;
+        spawns["fireBowRot"] = 3;
 
 
 

@@ -155,8 +155,8 @@ GameObject:
   - component: {fileID: 7940347183707043883}
   - component: {fileID: 7940347183707043880}
   m_Layer: 0
-  m_Name: BowRot 1
-  m_TagString: Untagged
+  m_Name: fireBowRot
+  m_TagString: Bow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

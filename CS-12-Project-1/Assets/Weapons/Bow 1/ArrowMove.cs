@@ -8,7 +8,10 @@ public class ArrowMove : MonoBehaviour {
     bool active = true;
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.name.Substring(0, 4) == "wall")
+        if (collision.gameObject.name.Length < 4) {
+           //used to stop the ice sword from erroring the next if because of the name "ice" (only 3 letters)
+        }
+        else if (collision.gameObject.name.Substring(0, 4) == "wall")
         {
             Destroy(transform.gameObject);
             active = false;
