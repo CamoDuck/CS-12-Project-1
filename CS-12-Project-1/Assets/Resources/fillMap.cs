@@ -10,9 +10,11 @@ public class fillMap : MonoBehaviour {
             
             //Debug.Log(Random.Range(0, (int)Mathf.Round(1 / item.Value))); //float gets rounded fown always when turedn to int so 9.9999 turned into 9
             while (Random.Range(0, item.Value) == 0 ) {
-                //Debug.Log(item.Key);
+                //Debug.Log(item.Key);  
                 GameObject clone = Instantiate(Resources.Load(item.Key)) as GameObject;
-                clone.transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+                Vector3 tranSize = transform.GetComponent<SpriteRenderer>().bounds.extents;
+                Vector3 cloneSize = clone.GetComponent<SpriteRenderer>().bounds.extents;
+                clone.transform.position = new Vector3(transform.position.x - tranSize.x + Random.Range(0, (tranSize.x*2)-cloneSize.x), transform.position.y - tranSize.y + Random.Range(0, (tranSize.y*2)-cloneSize.y), 1);
             }
         }
     }
