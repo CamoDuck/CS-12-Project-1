@@ -6,13 +6,13 @@ public class Createmap3 : MonoBehaviour {
 
     List<List<GameObject>> map = new List<List<GameObject>>();
     int tot = 0;
+    Vector3 floorsize;
 
 
 
-
-    void makeRoom(List<List<GameObject>> map, int lastx, int lasty, int sizeX, int sizeY) {
+    Vector2 makeRoom(List<List<GameObject>> map, int lastx, int lasty, int sizeX, int sizeY) {
         Vector2 direction = rand();
-        Debug.Log("check:" + map[lastx + (int)direction.x][lasty + (int)direction.y]);
+        //Debug.Log("check:" + map[lastx + (int)direction.x][lasty + (int)direction.y]);
         /*
         while (map[lastx + (int)direction.x][lasty + (int)direction.y] == null)
         {
@@ -60,26 +60,65 @@ public class Createmap3 : MonoBehaviour {
             {
                 direction = rand();
             }
-            makeRoom(map, lastx + (int)direction.x, lasty + (int)direction.y, sizeX, sizeY);
+            return makeRoom(map, lastx + (int)direction.x, lasty + (int)direction.y, sizeX, sizeY);
         }
         else
         {
-            Debug.Log("yessir x: " + lastx + "Y: " + lasty);
+           // Debug.Log("yessir x: " + lastx + "Y: " + lasty);
             for (int x = 1; x < sizeX+1; x++)
             {
                 for (int y = 1; y < sizeY+1; y++)
                 {
                     GameObject last = map[lastx][lasty];
                     Vector3 lastsize = last.GetComponent<Renderer>().bounds.extents;
-                    map[(int)(lastx + (x * change.x) - offset.x)][(int)(lasty + (y * change.y) - offset.y)] = Instantiate(Resources.Load("Floor")) as GameObject;
-                    GameObject now = map[(int)(lastx + (x * change.x) - offset.x)][(int)(lasty + (y * change.y) - offset.y)];
-                    //now.name = "X: " + (lastx + ((int)coord.x * (x + 1))) + "Y: " + (lasty + ((int)coord.y * (y + 1))) + "boss";
+                    map[(int)(lastx + (x * change.x) + offset.x)][(int)(lasty + (y * change.y) + offset.y)] = Instantiate(Resources.Load("Floor")) as GameObject;
+                    GameObject now = map[(int)(lastx + (x * change.x) + offset.x)][(int)(lasty + (y * change.y) + offset.y)];
+                    now.name = "X: " + (int)(lastx + (x * change.x) + offset.x) + "Y: " + (int)(lasty + (y * change.y) + offset.y) + "boss x:" + x + "y: " +y;
                     Vector3 nowsize = now.GetComponent<Renderer>().bounds.extents;
                     now.transform.position = last.transform.position + new Vector3((nowsize.x + lastsize.x) * (change.x * x + offset.x), (nowsize.y + lastsize.y) * (change.y * y + offset.y), 0);
+                    if (x == 1) {
+                        wall(now.transform, -floorsize.x*change.x, 0, 0, "wall+x");
+                    }
+                    if (x == sizeX) {
+                        wall(now.transform, floorsize.x*change.x, 0, 0, "wall-x");
 
+                    }
+                    if (y == 1) {
+                        wall(now.transform, 0, -floorsize.y*change.y, 90, "wall+y");
+
+                    }
+                    if (y == sizeY) {
+                        wall(now.transform, 0, floorsize.y * change.y, 90, "wall+y");
+
+
+                    }
 
                 }
             }
+            Transform last1 = map[lastx][lasty].transform;
+            Transform now1 = map[lastx + (int)direction.x][lasty + (int)direction.y].transform;
+            if (last1.position.x - now1.position.x > 0) {
+                Destroy(last1.Find("wall-x").gameObject);
+            
+            }
+            else if(last1.position.x - now1.position.x < 0) {
+                Destroy(last1.Find("wall+x").gameObject);
+
+            }
+            else if (last1.position.y - now1.position.y > 0)
+            {
+                Destroy(last1.Find("wall-y").gameObject);
+
+            }
+            else if (last1.position.y - now1.position.y < 0)
+            {
+                Destroy(last1.Find("wall+y").gameObject);
+
+            }
+
+            map[lastx + (int)direction.x][lasty + (int)direction.y].transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
+            map[lastx + (int)direction.x][lasty + (int)direction.y].transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            return new Vector2(lastx + direction.x, lasty + direction.y);
 
         }
     
@@ -157,7 +196,36 @@ public class Createmap3 : MonoBehaviour {
 
     */
 
+    void wall(Transform wallParent, float offsetX, float offsetY, int rot ,string wallName) {
+        GameObject wall = Instantiate(Resources.Load("Wall")) as GameObject;
+        //wall.name = wallName;
+        wall.transform.parent = wallParent;
+        wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / floorsize.y, 1);
+        wall.transform.rotation = Quaternion.AngleAxis(rot, Vector3.forward);
+        wall.transform.position = new Vector3((wallParent.transform.position.x + offsetX), (wallParent.transform.position.y + offsetY), 1);
 
+        if (wall.transform.localPosition.x > 0)
+        {
+            wall.name = "wall+x";
+        }
+        else if (wall.transform.localPosition.x < 0)
+        {
+            wall.name = "wall-x";
+
+        }
+        else if (wall.transform.localPosition.y > 0)
+        {
+            wall.name = "wall+y";
+
+        }
+        else if (wall.transform.localPosition.y < 0) {
+            wall.name = "wall-y";
+        
+        }
+
+
+        //Debug.Log("x: " + wall.transform.localPosition.x + "Y: " + wall.transform.localPosition.y);
+    }
 
 
 
@@ -170,12 +238,15 @@ public class Createmap3 : MonoBehaviour {
             }
         }
         else {
+            wall(now.transform, floorsize.x, 0, 0, "wall+x");
+            /*
             GameObject wall = Instantiate(Resources.Load("Wall")) as GameObject;
             wall.name = "wall+x";
             wall.transform.parent = now.transform;
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y/nowsize.y, 1);
             wall.transform.position = new Vector3((now.transform.position.x + nowsize.x), (now.transform.position.y), 1);
             //Debug.Log(wall.transform.localScale + "x+");
+            */
         }
         if (coord.x == 1)
         {
@@ -187,12 +258,15 @@ public class Createmap3 : MonoBehaviour {
         }
         else
         {
+            wall(now.transform, -floorsize.x, 0, 0, "wall-x");
+            /*
             GameObject wall = Instantiate(Resources.Load("Wall")) as GameObject;
             wall.name = "wall-x";
             wall.transform.parent = now.transform;
             wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / nowsize.y, 1);
             wall.transform.position = new Vector3((now.transform.position.x - nowsize.x), (now.transform.position.y), 1);
             //Debug.Log(wall.transform.localScale + "x-");
+            */
         }
         if (coord.y == -1)
         {
@@ -204,6 +278,8 @@ public class Createmap3 : MonoBehaviour {
         }
         else
         {
+            wall(now.transform, 0, floorsize.y, 90, "wall+y");
+            /*
             GameObject wall = Instantiate(Resources.Load("Wall")) as GameObject;
             wall.name = "wall+y";
             wall.transform.parent = now.transform;
@@ -211,6 +287,7 @@ public class Createmap3 : MonoBehaviour {
             //Debug.Log(wall.transform.localScale + "y+");
             wall.transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
             wall.transform.position = new Vector3((now.transform.position.x), (now.transform.position.y + nowsize.y), 1);
+            */
         }
         if (coord.y == 1)
         {
@@ -222,6 +299,8 @@ public class Createmap3 : MonoBehaviour {
         }
         else
         {
+            wall(now.transform, 0, -floorsize.y, 90, "wall-y");
+            /*
             GameObject wall = Instantiate(Resources.Load("Wall")) as GameObject;
             wall.name = "wall-y";
             wall.transform.parent = now.transform;
@@ -229,6 +308,7 @@ public class Createmap3 : MonoBehaviour {
             wall.transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
             wall.transform.position = new Vector3((now.transform.position.x), (now.transform.position.y - nowsize.y), 1);
             //Debug.Log(wall.transform.localScale + "y-");
+            */
         }
 
     }
@@ -312,10 +392,16 @@ public class Createmap3 : MonoBehaviour {
         }
 
         map[25][25] = GameObject.Find("start");
-        generate(map, 25, 25, 50);
-        makeRoom(map, 25, 25, 1, 3);
-        
+        floorsize = map[25][25].transform.GetComponent<Renderer>().bounds.extents;
 
+
+        generate(map, 25, 25, 50);
+        Vector2 bossEnter = makeRoom(map, 25, 25, 5, 5);
+        GameObject clone = Instantiate(Resources.Load("bossEntrance")) as GameObject;
+        clone.transform.position = map[(int)bossEnter.x][(int)bossEnter.y].transform.position;
+        map[(int)bossEnter.x][(int)bossEnter.y].transform.GetChild(0).SetParent(clone.transform);
+        Destroy(map[(int)bossEnter.x][(int)bossEnter.y].gameObject);
+        map[(int)bossEnter.x][(int)bossEnter.y] = clone;
         //printL(map);
 
     }

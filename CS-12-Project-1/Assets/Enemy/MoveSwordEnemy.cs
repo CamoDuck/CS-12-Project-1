@@ -90,7 +90,7 @@ public class MoveSwordEnemy : MonoBehaviour
                 healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f, 0, 0);
                 healthbar.position -= new Vector3(healthsize * Time.deltaTime, 0, 0);
                 burnTime -= Time.deltaTime;
-                Debug.Log(burnTime);
+                //Debug.Log(burnTime);
 
             }
         }
