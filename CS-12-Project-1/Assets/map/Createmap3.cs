@@ -4,9 +4,58 @@ using UnityEngine;
 
 public class Createmap3 : MonoBehaviour {
 
+    List<string> weaponList = new List<string> { "fireBowRot", "fireSwordRot", "iceBowRot", "iceSwordRot" };
+    List<string> potionList = new List<string> {"speedPot","maxhealthPot","healthPot"};
     List<List<GameObject>> map = new List<List<GameObject>>();
     int tot = 0;
     Vector3 floorsize;
+
+
+    void makeShop(Vector2 Entrance) {
+        Transform shopEnter = map[(int)Entrance.x][(int)Entrance.y].transform;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Transform clone = (Instantiate(Resources.Load("itemDisplay")) as GameObject).transform;
+            if (shopEnter.GetChild(0).name == "wall+x")
+            {
+                clone.position = new Vector3(shopEnter.position.x - floorsize.x * 3, shopEnter.position.y + (floorsize.y*(i-1) * 1.25f), shopEnter.position.z - 1);
+            }
+            else if (shopEnter.GetChild(0).name == "wall-x")
+            {
+                clone.position = new Vector3(shopEnter.position.x + floorsize.x * 3, shopEnter.position.y + (floorsize.y * (i - 1) * 1.25f), shopEnter.position.z - 1);
+            }
+            else if (shopEnter.GetChild(0).name == "wall+y")
+            {
+                clone.position = new Vector3(shopEnter.position.x + (floorsize.x * (i - 1)*1.25f), shopEnter.position.y - floorsize.y * 3, shopEnter.position.z - 1);
+            }
+            else if (shopEnter.GetChild(0).name == "wall-y")
+            {
+                clone.position = new Vector3(shopEnter.position.x + (floorsize.x * (i - 1) * 1.25f), shopEnter.position.y + floorsize.y * 3, shopEnter.position.z - 1);
+            }
+            Transform item;
+            if (i == 0)
+            {
+                clone.GetChild(0).GetComponent<TextMesh>().text = "Cost: " + Random.Range(1000, 5001) + " Gold";
+                item = (Instantiate(Resources.Load("Chest Items/" + weaponList[Random.Range(0, weaponList.Count)])) as GameObject).transform;
+                item.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else if (i == 1)
+            {
+                clone.GetChild(0).GetComponent<TextMesh>().text = "Cost: " + Random.Range(500, 1001) + " Gold";
+                item = (Instantiate(Resources.Load("Chest Items/" + potionList[Random.Range(0, potionList.Count)])) as GameObject).transform;
+                item.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else {
+                clone.GetChild(0).GetComponent<TextMesh>().text = "Cost: " + Random.Range(100, 501) + " Gold";
+                item = (Instantiate(Resources.Load("Chest Items/mysteryPot") as GameObject)).transform;
+                item.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            }
+            item.SetParent(clone);
+            item.localPosition = new Vector3(0, 0, -1);
+            
+        }
+    }
 
 
 
@@ -73,7 +122,8 @@ public class Createmap3 : MonoBehaviour {
                     Vector3 lastsize = last.GetComponent<Renderer>().bounds.extents;
                     map[(int)(lastx + (x * change.x) + offset.x)][(int)(lasty + (y * change.y) + offset.y)] = Instantiate(Resources.Load("Floor")) as GameObject;
                     GameObject now = map[(int)(lastx + (x * change.x) + offset.x)][(int)(lasty + (y * change.y) + offset.y)];
-                    now.name = "X: " + (int)(lastx + (x * change.x) + offset.x) + "Y: " + (int)(lasty + (y * change.y) + offset.y) + "boss x:" + x + "y: " +y;
+                    //now.name = "X: " + (int)(lastx + (x * change.x) + offset.x) + "Y: " + (int)(lasty + (y * change.y) + offset.y) + "boss x:" + x + "y: " +y;
+                    now.name = "FloorC";
                     Vector3 nowsize = now.GetComponent<Renderer>().bounds.extents;
                     now.transform.position = last.transform.position + new Vector3((nowsize.x + lastsize.x) * (change.x * x + offset.x), (nowsize.y + lastsize.y) * (change.y * y + offset.y), 0);
                     if (x == 1) {
@@ -202,7 +252,7 @@ public class Createmap3 : MonoBehaviour {
         wall.transform.parent = wallParent;
         wall.transform.localScale = new Vector3(wall.transform.localScale.x, wall.GetComponent<Renderer>().bounds.extents.y / floorsize.y, 1);
         wall.transform.rotation = Quaternion.AngleAxis(rot, Vector3.forward);
-        wall.transform.position = new Vector3((wallParent.transform.position.x + offsetX), (wallParent.transform.position.y + offsetY), 1);
+        wall.transform.position = new Vector3((wallParent.transform.position.x + offsetX), (wallParent.transform.position.y + offsetY), 2);
 
         if (wall.transform.localPosition.x > 0)
         {
@@ -352,24 +402,24 @@ public class Createmap3 : MonoBehaviour {
             int ycoord = (int)coord.y + lasty;
             GameObject last = map[lastx][lasty];
             Vector3 lastsize = last.GetComponent<Renderer>().bounds.extents;
-            
             if (map[xcoord][ycoord] == null)
             {
                 map[xcoord][ycoord] = Instantiate(Resources.Load("Floor")) as GameObject;
                 GameObject now = map[xcoord][ycoord];
-                now.name = "X:"+xcoord+"Y:" + ycoord;
+                //now.name = "X:"+xcoord+"Y:" + ycoord;
                 //now.transform.localScale = new Vector3(Random.Range(1, 3), Random.Range(1, 3), 1);
                 Vector3 nowsize = now.GetComponent<Renderer>().bounds.extents;
                 //map[xcoord][ycoord].transform.localScale = new Vector3(Random.Range(20, 100), Random.Range(20, 100), 1);
                 map[xcoord][ycoord].transform.position = last.transform.position + new Vector3((nowsize.x + lastsize.x) * coord.x, (nowsize.y + lastsize.y) * coord.y, 0);
-                //map[xcoord][ycoord].name = "Floor" + num; ------enable again
+                map[xcoord][ycoord].name = "Floor" + num;
                 GameObject dark = Instantiate(Resources.Load("Dark")) as GameObject;
                 dark.transform.parent = now.transform;
-                dark.transform.position = new Vector3(now.transform.position.x, now.transform.position.y, now.transform.position.z-2);
+                dark.transform.position = new Vector3(now.transform.position.x, now.transform.position.y, now.transform.position.z - 2);
                 makeWall(now, last, nowsize, coord);
                 generate(map, 25, 25, num - 1);
             }
-            else if (map[xcoord][ycoord].name != ("Floor" + num + 1)) {
+            else if (map[xcoord][ycoord].name != ("Floor" + num + 1) & map[xcoord][ycoord].name != "FloorC")
+            {
                 generate(map, xcoord, ycoord, num);
             }
             else
@@ -395,9 +445,17 @@ public class Createmap3 : MonoBehaviour {
         floorsize = map[25][25].transform.GetComponent<Renderer>().bounds.extents;
 
 
-        generate(map, 25, 25, 50);
+        generate(map, 25, 25, 20);
+        makeShop(makeRoom(map, 25, 25, 3, 3));
+        generate(map, 25, 25, 20);
+        generate(map, 25, 25, 20);
+        makeShop(makeRoom(map, 25, 25, 3, 3));
+        generate(map, 25, 25, 20);
+        generate(map, 25, 25, 20);
         Vector2 bossEnter = makeRoom(map, 25, 25, 5, 5);
+
         GameObject clone = Instantiate(Resources.Load("bossEntrance")) as GameObject;
+        clone.name = "FloorC";
         clone.transform.position = map[(int)bossEnter.x][(int)bossEnter.y].transform.position;
         map[(int)bossEnter.x][(int)bossEnter.y].transform.GetChild(0).SetParent(clone.transform);
         Destroy(map[(int)bossEnter.x][(int)bossEnter.y].gameObject);

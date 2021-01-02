@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class bossMove : MonoBehaviour
 {
@@ -14,21 +15,17 @@ public class bossMove : MonoBehaviour
     float burnTime;
     float freezeTime;
     float chargeTime = 0;
+    float bossHealth = 10;
 
-    void charge() { 
-        
-    
-    
-    }
 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" & collision.gameObject.name != "Player")
         {
-            healthbar.localScale -= new Vector3(0.1f, 0, 0);
-            healthbar.position -= new Vector3(healthsize, 0, 0);
+            healthbar.localScale -= new Vector3(0.1f/bossHealth, 0, 0);
+            healthbar.position -= new Vector3(healthsize/bossHealth, 0, 0);
             if (collision.gameObject.name == "ice" & Random.Range(0, 5) == 0)
             {
                 freezeTime = 5;
@@ -93,6 +90,8 @@ public class bossMove : MonoBehaviour
     {
         if (healthbar.localScale.x <= 0)
         {
+            Text goldtext = player.transform.Find("GUI").Find("goldImage").Find("goldAmount").GetComponent<Text>();
+            goldtext.text = "Gold: " + (int.Parse(goldtext.text.Substring(6)) + Random.Range(200, 501));
             Destroy(gameObject);
 
         }
@@ -140,8 +139,8 @@ public class bossMove : MonoBehaviour
             
             if (burnTime >= 0)
             {
-                healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f, 0, 0);
-                healthbar.position -= new Vector3(healthsize * Time.deltaTime, 0, 0);
+                healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f/bossHealth, 0, 0);
+                healthbar.position -= new Vector3(healthsize/bossHealth * Time.deltaTime, 0, 0);
                 burnTime -= Time.deltaTime;
                 //Debug.Log(burnTime);
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveBowEnemy : MonoBehaviour
 {
@@ -62,6 +63,8 @@ public class MoveBowEnemy : MonoBehaviour
     {
         if (healthbar.localScale.x <= 0)
         {
+            Text goldtext = player.transform.Find("GUI").Find("goldImage").Find("goldAmount").GetComponent<Text>();
+            goldtext.text = "Gold: "+ (int.Parse(goldtext.text.Substring(6)) + Random.Range(20,51));
             Destroy(gameObject);
         }
         if (freezeTime <= 0)

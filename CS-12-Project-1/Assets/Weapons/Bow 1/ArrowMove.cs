@@ -13,17 +13,18 @@ public class ArrowMove : MonoBehaviour {
         }
         else if (collision.gameObject.name.Substring(0, 4) == "wall")
         {
-            Destroy(transform.gameObject);
+            Destroy(gameObject);
             active = false;
         }
         else if (collision.gameObject.name == "Enemy" && transform.tag != "Enemy")
         {
             //Debug.Log("hit Enemy!");
 
-
+            Destroy(gameObject);
         }
         else if (collision.gameObject.name == "Player" && transform.tag != "Player") {
             //Debug.Log("hit Player!");
+            Destroy(gameObject);
         }
     }
 

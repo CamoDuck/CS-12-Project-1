@@ -1,12 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovePlayer : MonoBehaviour {
     float xSpeed;
     float ySpeed;
     float speed = 5f;
     float sprint = 1;
+    int health = 10000;
+    int maxHealth = 10000;
+    float damagetimer = 0;
+
+    Transform healthBar;
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (damagetimer <= 0)
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                Debug.Log("Oofers");
+                health -= Random.Range(50,101);
+                damagetimer = 0.5f;
+                if (health <= 0) {
+                    health = 0;
+                    
+                }
+            }
+        } 
+    }
 
     void inventory() {
         Transform inventory = transform.Find("Inventory");
@@ -23,10 +47,15 @@ public class MovePlayer : MonoBehaviour {
     }
 
     void Start() {
-
     }
 
     void Update() {
+
+        healthBar = transform.Find("GUI").Find("healthbar");
+        healthBar.Find("healthText").GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+        healthBar.Find("health").localScale = new Vector3((health+0.0f)/maxHealth, 1, 0.99f);
+        healthBar.Find("health").position = new Vector3(healthBar.position.x +(health-maxHealth)/(6.7f*((maxHealth+0.0f)/1000)), healthBar.position.y, healthBar.position.z);
+
         if (Input.GetKeyDown(KeyCode.W)) {
             ySpeed += speed;
         }
@@ -82,6 +111,11 @@ public class MovePlayer : MonoBehaviour {
             inventory();
         }
 
+        if (damagetimer >= 0)
+        {
+            damagetimer -= Time.deltaTime;
+
+        }
 
 
             transform.position += new Vector3(xSpeed*sprint, ySpeed*sprint, 0) * Time.deltaTime; 
