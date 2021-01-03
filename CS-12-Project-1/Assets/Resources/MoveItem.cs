@@ -9,7 +9,6 @@ public class MoveItem : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
        
-        Debug.Log("yett");
         if (pointerEventData.button == PointerEventData.InputButton.Left)
         {
             if (transform.root.name == "Player")
