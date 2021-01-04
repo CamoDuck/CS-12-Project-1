@@ -90,16 +90,12 @@ public class MovePlayer : MonoBehaviour {
     }
 
     void Update() {
-
+        healthBar = transform.Find("GUI").Find("healthbar");
+        healthbarSize = transform.Find("GUI").GetComponent<RectTransform>().rect.width;
+        healthBar.Find("healthText").GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+        healthBar.Find("health").localScale = new Vector3((health + 0.0f) / maxHealth, 1, 0.99f);
         if (health > 0 & int.Parse(bossstat.text.Substring(bossstat.text.IndexOf(":") + 1)) != 2)
         {
-
-            healthBar = transform.Find("GUI").Find("healthbar");
-            healthbarSize = transform.Find("GUI").GetComponent<RectTransform>().rect.width;
-            healthBar.Find("healthText").GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
-            healthBar.Find("health").localScale = new Vector3((health + 0.0f) / maxHealth, 1, 0.99f);
-            healthBar.Find("health").position = new Vector3(healthBar.position.x + (health - maxHealth) / ((healthbarSize / 72) * ((maxHealth + 0.0f) / 1000)), healthBar.position.y, healthBar.position.z);
-
             if (Input.GetKeyDown(KeyCode.W))
             {
                 ySpeed += speed;

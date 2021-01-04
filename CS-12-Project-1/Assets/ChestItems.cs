@@ -31,12 +31,19 @@ public class ChestItems : MonoBehaviour
 
     void Start()
     {
-        spawns["SwordRot"] = 2;
-        spawns["Bowrot"] = 2;
-        spawns["iceSwordRot"] = 3;
-        spawns["iceBowRot"] = 3;
-        spawns["fireSwordRot"] = 3;
-        spawns["fireBowRot"] = 3;
+        spawns["SwordRot"] = 5;
+        spawns["Bowrot"] = 5;
+        spawns["iceSwordRot"] = 20;
+        spawns["iceBowRot"] = 20;
+        spawns["fireSwordRot"] = 10;
+        spawns["fireBowRot"] = 10;
+
+        spawns["mysteryPot"] = 2;
+        spawns["speedPot"] = 3;
+        spawns["healthPot"] = 3;
+        spawns["maxhealthPot"] = 3;
+
+
 
 
 
