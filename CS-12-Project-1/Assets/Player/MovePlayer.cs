@@ -8,7 +8,7 @@ public class MovePlayer : MonoBehaviour {
     float ySpeed;
     float speed = 5f;
     float sprint = 1;
-    int health = 10000;
+    float health = 10000;
     int maxHealth = 10000;
     float damagetimer = 0;
     float timePlayed = 0;
@@ -16,6 +16,20 @@ public class MovePlayer : MonoBehaviour {
 
     Transform healthBar;
     float healthbarSize;
+
+    bool alive = true;
+
+
+    public void damage(float dmg) {
+        if (health - dmg < 0)
+        {
+            health = 0;
+        }
+        else
+        {
+            health -= dmg;
+        }
+    }
 
     public void addSpeed(int n=1)
     {
@@ -56,19 +70,23 @@ public class MovePlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (damagetimer <= 0)
+        if (alive == true)
         {
-            if (collision.gameObject.tag == "Enemy")
+            if (damagetimer <= 0)
             {
-                Debug.Log("Oofers");
-                health -= Random.Range(50,101);
-                damagetimer = 0.5f;
-                if (health <= 0) {
-                    health = 0;
-                    
+                if (collision.gameObject.tag == "Enemy")
+                {
+                    Debug.Log("Oofers");
+                    health -= Random.Range(50, 101);
+                    damagetimer = 0.5f;
+                    if (health <= 0)
+                    {
+                        health = 0;
+
+                    }
                 }
             }
-        } 
+        }
     }
 
     void inventory() {
@@ -92,7 +110,7 @@ public class MovePlayer : MonoBehaviour {
     void Update() {
         healthBar = transform.Find("GUI").Find("healthbar");
         healthbarSize = transform.Find("GUI").GetComponent<RectTransform>().rect.width;
-        healthBar.Find("healthText").GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+        healthBar.Find("healthText").GetComponent<Text>().text = "Health: " + Mathf.Round(health) + "/" + maxHealth;
         healthBar.Find("health").localScale = new Vector3((health + 0.0f) / maxHealth, 1, 0.99f);
         if (health > 0 & int.Parse(bossstat.text.Substring(bossstat.text.IndexOf(":") + 1)) != 2)
         {
@@ -176,6 +194,7 @@ public class MovePlayer : MonoBehaviour {
         }
         else
         {
+            alive = false;
             Transform gameScreen = transform.Find("GUI").Find("EndScreen");
 
             Text timestat = gameScreen.Find("TimeScore").GetComponent<Text>();
