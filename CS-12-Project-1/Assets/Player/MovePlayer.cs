@@ -17,6 +17,42 @@ public class MovePlayer : MonoBehaviour {
     Transform healthBar;
     float healthbarSize;
 
+    public void addSpeed(int n=1)
+    {
+        if (xSpeed > 0)
+        {
+            xSpeed += n*2;
+        }
+        else if (xSpeed < 0) {
+            xSpeed += n * -2;
+        }
+        if (ySpeed > 0)
+        {
+            ySpeed += n * 2;
+        }
+        else if (ySpeed < 0)
+        {
+            ySpeed += n * -2;
+        }
+
+        speed += n * 2;
+    }
+    public void addHealth(int n=1)
+    {
+        if ((health + (n * 1000)) > maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += n * 1000;
+        }
+    }
+
+    public void addmaxHealth(int n=1) {
+        maxHealth += n * 500;
+        health += n * 500;
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -116,7 +152,7 @@ public class MovePlayer : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                sprint = 4f;
+                sprint = 2f;
 
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))

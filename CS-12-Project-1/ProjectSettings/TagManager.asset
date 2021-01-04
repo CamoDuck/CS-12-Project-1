@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - Sword
   - Bow
+  - Potion
   layers:
   - Default
   - TransparentFX

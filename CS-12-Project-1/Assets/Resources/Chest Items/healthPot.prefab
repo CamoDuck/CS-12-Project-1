@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5794630937050153899}
   m_Layer: 0
   m_Name: healthPot
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 9220556700646106684}
   m_Layer: 0
   m_Name: healthPot
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

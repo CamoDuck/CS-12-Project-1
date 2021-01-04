@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 917342112184164686}
   m_Layer: 0
   m_Name: mysteryPot
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7311232024472884129}
   m_Layer: 0
   m_Name: mysteryPot
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
