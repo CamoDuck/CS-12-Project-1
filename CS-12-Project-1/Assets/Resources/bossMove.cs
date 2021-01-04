@@ -91,7 +91,15 @@ public class bossMove : MonoBehaviour
         if (healthbar.localScale.x <= 0)
         {
             Text goldtext = player.transform.Find("GUI").Find("goldImage").Find("goldAmount").GetComponent<Text>();
-            goldtext.text = "Gold: " + (int.Parse(goldtext.text.Substring(6)) + Random.Range(200, 501));
+            int randomGold = Random.Range(200, 501);
+            goldtext.text = "Gold: " + (int.Parse(goldtext.text.Substring(6)) + randomGold);
+
+            Text goldstat = player.transform.Find("GUI").Find("EndScreen").Find("GoldScore").GetComponent<Text>();
+            goldstat.text = "Gold collected: " + (int.Parse(goldstat.text.Substring(goldstat.text.IndexOf(":") + 1)) + randomGold);
+
+            Text bossstat = player.Find("GUI").Find("EndScreen").Find("BossScore").GetComponent<Text>();
+            bossstat.text = "Bosses defeated: " + (int.Parse(bossstat.text.Substring(bossstat.text.IndexOf(":") + 1)) + 1);
+
             Destroy(gameObject);
 
         }

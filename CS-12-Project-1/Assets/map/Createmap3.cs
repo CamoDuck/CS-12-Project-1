@@ -444,7 +444,6 @@ public class Createmap3 : MonoBehaviour {
         map[25][25] = GameObject.Find("start");
         floorsize = map[25][25].transform.GetComponent<Renderer>().bounds.extents;
 
-
         generate(map, 25, 25, 20);
         makeShop(makeRoom(map, 25, 25, 3, 3));
         generate(map, 25, 25, 20);

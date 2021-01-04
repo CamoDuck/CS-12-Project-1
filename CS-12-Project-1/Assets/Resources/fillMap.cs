@@ -14,7 +14,7 @@ public class fillMap : MonoBehaviour {
                 GameObject clone = Instantiate(Resources.Load(item.Key)) as GameObject;
                 Vector3 tranSize = transform.GetComponent<SpriteRenderer>().bounds.extents;
                 Vector3 cloneSize = clone.GetComponent<SpriteRenderer>().bounds.extents;
-                clone.transform.position = new Vector3(transform.position.x - tranSize.x + Random.Range(0, (tranSize.x*2)-cloneSize.x), transform.position.y - tranSize.y + Random.Range(0, (tranSize.y*2)-cloneSize.y), 1);
+                clone.transform.position = new Vector3(transform.position.x - tranSize.x + Random.Range(cloneSize.x*2, (tranSize.x*2)-cloneSize.x), transform.position.y - tranSize.y + Random.Range(cloneSize.y*2, (tranSize.y*2)-cloneSize.y), 1);
             }
         }
     }

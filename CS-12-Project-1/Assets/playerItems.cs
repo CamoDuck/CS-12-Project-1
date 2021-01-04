@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class playerItems : MonoBehaviour
 {
+    Transform player;
     Transform swordEquip;
     Transform bowEquip;
     int UIpos = 0;
@@ -33,7 +34,8 @@ public class playerItems : MonoBehaviour
 
         transform.Find("itemEquip").Find("Sword").GetComponent<Image>().sprite = swordEquip.GetComponent<SpriteRenderer>().sprite;
         transform.Find("itemEquip").Find("Bow").GetComponent<Image>().sprite = bowEquip.GetComponent<SpriteRenderer>().sprite;
-        
+
+        player = transform.root;
         
 
 
@@ -43,8 +45,10 @@ public class playerItems : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E) | Input.GetMouseButtonUp(0))
+        if (transform.Find("items").childCount > 0) 
         {
+            Text itemstat = player.transform.Find("GUI").Find("EndScreen").Find("ItemsScore").GetComponent<Text>();
+            itemstat.text = "Items collected: " + (int.Parse(itemstat.text.Substring(itemstat.text.IndexOf(":") + 1)) + 1);
             add();
         }
     }

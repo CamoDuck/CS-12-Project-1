@@ -7,11 +7,11 @@ public class BUGS : MonoBehaviour
     /*
 
     =======================================BUGS=======================================
-    -Chests sometimes doesnt display inventory (only shows chest inventory)
+    -(FIXED)Chests sometimes doesnt display inventory (only shows chest inventory) 
     -enemy still shoot sometimes when frozen
-    -Shop Somtimes generates without a door or door facing wrong way
+    -(FIXED)Shop Somtimes generates without a door or door facing wrong way
     -Weapons dont shows up when equiped(especially when bought from shop or obtained from a chest)
-    -sometimes things spawn outside the map
+    -(FIXED)sometimes things spawn outside the map
 
 
 

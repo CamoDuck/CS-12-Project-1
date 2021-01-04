@@ -68,7 +68,15 @@ public class MoveSwordEnemy : MonoBehaviour
         if (healthbar.localScale.x <= 0)
         {
             Text goldtext = player.transform.Find("GUI").Find("goldImage").Find("goldAmount").GetComponent<Text>();
-            goldtext.text = "Gold: " + (int.Parse(goldtext.text.Substring(6)) + Random.Range(20, 51));
+            int randomGold = Random.Range(20, 51);
+            goldtext.text = "Gold: " + (int.Parse(goldtext.text.Substring(6)) + randomGold);
+
+            Text enemystat = player.transform.Find("GUI").Find("EndScreen").Find("EnemyScore").GetComponent<Text>();
+            enemystat.text = "Enemies killed: " + (int.Parse(enemystat.text.Substring(enemystat.text.IndexOf(":") + 1)) + 1);
+
+            Text goldstat = player.transform.Find("GUI").Find("EndScreen").Find("GoldScore").GetComponent<Text>();
+            goldstat.text = "Gold collected: " + (int.Parse(goldstat.text.Substring(goldstat.text.IndexOf(":") + 1)) + randomGold);
+
             Destroy(gameObject);
         }
         if (freezeTime <= 0)

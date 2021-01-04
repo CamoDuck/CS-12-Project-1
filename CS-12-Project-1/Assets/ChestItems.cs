@@ -63,7 +63,7 @@ public class ChestItems : MonoBehaviour
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0) & transform.Find("Canvas").GetComponent<Canvas>().enabled == false & transform.position.x+width > mousePos.x & transform.position.x - width < mousePos.x & transform.position.y + height > mousePos.y & transform.position.y - height < mousePos.y) {
+        if (playerInv.GetComponent<Canvas>().enabled == false & Input.GetMouseButtonDown(0)  & transform.position.x+width > mousePos.x & transform.position.x - width < mousePos.x & transform.position.y + height > mousePos.y & transform.position.y - height < mousePos.y) {
             transform.Find("Canvas").GetComponent<Canvas>().enabled = !transform.Find("Canvas").GetComponent<Canvas>().enabled;
             playerInv.GetComponent<Canvas>().enabled = !playerInv.GetComponent<Canvas>().enabled;
             playerInv.Find("itemEquip").GetComponent<Image>().enabled = !playerInv.Find("itemEquip").GetComponent<Image>().enabled;
