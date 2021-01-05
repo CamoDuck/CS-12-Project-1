@@ -28,8 +28,6 @@ public class playerItems : MonoBehaviour
     void Start() {
         swordEquip = transform.parent.Find("SwordRot").Find("Sword");
         bowEquip = transform.parent.Find("BowRot").Find("Bow");
-        //Debug.Log(swordEquip.tag);
-        //Debug.Log(bowEquip.tag);
 
 
         transform.Find("itemEquip").Find("Sword").GetComponent<Image>().sprite = swordEquip.GetComponent<SpriteRenderer>().sprite;

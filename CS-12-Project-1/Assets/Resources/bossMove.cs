@@ -31,14 +31,12 @@ public class bossMove : MonoBehaviour
                 freezeTime = 5;
                 burnTime = 0;
                 transform.Find("BowRot").GetComponent<ShootBow>().enabled = false;
-                //Debug.Log("Freeze");
 
             }
             else if (collision.gameObject.name == "fire" & Random.Range(0, 5) == 0)
             {
                 burnTime = 5;
                 freezeTime = 0;
-                //Debug.Log("burnn");
 
             }
 
@@ -75,7 +73,7 @@ public class bossMove : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GameObject.Find("Player").transform;
@@ -85,7 +83,7 @@ public class bossMove : MonoBehaviour
         healthsize = healthbar.GetComponent<SpriteRenderer>().bounds.extents.x / 10;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (healthbar.localScale.x <= 0)
@@ -142,7 +140,6 @@ public class bossMove : MonoBehaviour
                 }
 
             }
-            //transform.Find("BowRot").GetComponent<ShootBow>().enabled = true;
 
             
             if (burnTime >= 0)
@@ -150,7 +147,6 @@ public class bossMove : MonoBehaviour
                 healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f/bossHealth, 0, 0);
                 healthbar.position -= new Vector3(healthsize/bossHealth * Time.deltaTime, 0, 0);
                 burnTime -= Time.deltaTime;
-                //Debug.Log(burnTime);
 
             }
 

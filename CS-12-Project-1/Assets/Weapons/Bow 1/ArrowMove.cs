@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowMove : MonoBehaviour {
     Vector3 direction;
-    float speed = 10f;
+    float speed = 15f;
     bool active = true;
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -18,12 +18,9 @@ public class ArrowMove : MonoBehaviour {
         }
         else if (collision.gameObject.name == "Enemy" && transform.tag != "Enemy")
         {
-            //Debug.Log("hit Enemy!");
-
             Destroy(gameObject);
         }
         else if (collision.gameObject.name == "Player" && transform.tag != "Player") {
-            //Debug.Log("hit Player!");
             Destroy(gameObject);
         }
     }
@@ -40,7 +37,6 @@ public class ArrowMove : MonoBehaviour {
         }
         direction.z = 0;
         direction = Vector3.Normalize(direction) * speed;
-        //Debug.Log(direction.z);
     }
 
     void Update() {

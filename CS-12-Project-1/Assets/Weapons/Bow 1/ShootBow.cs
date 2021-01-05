@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootBow : MonoBehaviour {
-    float reloadTime = 1f;
+    float reloadTime = 0.5f;
     bool ready = true;
     Vector3 mousePos;
 

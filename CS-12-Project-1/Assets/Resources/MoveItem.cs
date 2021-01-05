@@ -75,7 +75,6 @@ public class MoveItem : MonoBehaviour, IPointerClickHandler
             else
             {
                 transform.GetChild(0).SetParent(GameObject.Find("Player").transform.Find("Inventory").Find("items"));
-                //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
         }

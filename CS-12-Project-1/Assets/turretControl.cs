@@ -15,8 +15,6 @@ public class turretControl : MonoBehaviour
     int maxrange = 10;
     int voltage = 100;
     float healthsize;
-    int freezeTime = 0;
-    int burnTime = 0;
 
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -26,20 +24,6 @@ public class turretControl : MonoBehaviour
         {
             healthbar.localScale -= new Vector3(0.1f, 0, 0);
             healthbar.position -= new Vector3(healthsize, 0, 0);
-            if (collision.gameObject.name == "ice" & Random.Range(0, 5) == 0)
-            {
-                freezeTime = 5;
-                transform.Find("SwordRot").GetComponent<SwordSwing>().enabled = false;
-                Debug.Log("Freeze");
-
-            }
-            else if (collision.gameObject.name == "fire" & Random.Range(0, 5) == 0)
-            {
-                burnTime = 5;
-                Debug.Log("burnn");
-
-            }
-
         }
     }
 
@@ -59,7 +43,7 @@ public class turretControl : MonoBehaviour
     {
         if (healthbar.localScale.x > 0)
         {
-            if (Vector3.Distance(transform.position, player.position) <= 10)
+            if (Vector3.Distance(transform.position, player.position) <= maxrange)
             {
                 playerscript.damage(voltage * Time.deltaTime);
                 ray.SetPosition(1, player.position);

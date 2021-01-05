@@ -76,7 +76,6 @@ public class MovePlayer : MonoBehaviour {
             {
                 if (collision.gameObject.tag == "Enemy")
                 {
-                    Debug.Log("Oofers");
                     health -= Random.Range(50, 101);
                     damagetimer = 0.5f;
                     if (health <= 0)

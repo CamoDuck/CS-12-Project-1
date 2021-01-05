@@ -24,14 +24,12 @@ public class MoveBowEnemy : MonoBehaviour
                 freezeTime = 5;
                 burnTime = 0;
                 transform.Find("BowRot").GetComponent<ShootBow>().enabled = false;
-                //Debug.Log("Freeze");
 
             }
             else if (collision.gameObject.name == "fire" & Random.Range(0, 5) == 0)
             {
                 burnTime = 5;
                 freezeTime = 0;
-                //Debug.Log("burnn");
 
             }
 
@@ -78,7 +76,6 @@ public class MoveBowEnemy : MonoBehaviour
         if (freezeTime <= 0)
         {
             transform.Find("BowRot").GetComponent<ShootBow>().enabled = true;
-            //Debug.Log("running2");
             if (Vector3.Distance(transform.position, player.transform.position) < 4)
             {
                 moveAway();
@@ -92,7 +89,6 @@ public class MoveBowEnemy : MonoBehaviour
                 healthbar.localScale -= new Vector3(Time.deltaTime * 0.1f, 0, 0);
                 healthbar.position -= new Vector3(healthsize * Time.deltaTime, 0, 0);
                 burnTime -= Time.deltaTime;
-                //Debug.Log(burnTime);
 
             } 
 

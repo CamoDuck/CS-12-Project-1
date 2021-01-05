@@ -29,18 +29,13 @@ public class SwordSwing : MonoBehaviour
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             temp = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-            
-
         }
         else if (transform.parent.tag == "Enemy")
         {
             temp = Quaternion.LookRotation(Vector3.forward, GameObject.Find("Player").transform.position - transform.position);
-
-
         }
 
         transform.rotation = Quaternion.Euler(temp.eulerAngles.x, temp.eulerAngles.y, temp.eulerAngles.z + change);
-        //Debug.Log((Input.GetMouseButton(0) & transform.GetComponent<SpriteRenderer>().enabled == true) | transform.parent.tag == "Enemy");
 
         if (ready == false)
         {
@@ -50,7 +45,6 @@ public class SwordSwing : MonoBehaviour
         }
         else if ((Input.GetMouseButton(0) | transform.parent.tag == "Enemy") & transform.GetComponent<SpriteRenderer>().enabled == true) 
         {
-            //Debug.Log("ran");
             ready = false;
             StartCoroutine(Swing());
         }
